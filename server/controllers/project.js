@@ -14,7 +14,10 @@ const retrieveAllProjects = async (req , res) =>{
   const projects = await Project.find();
   res.status(StatusCodes.OK).json(projects);
 }
-const withdraw = async (req, res) => {};
+
+const withdraw = async (req, res) => {
+  
+};
 
 module.exports = {
   createProject,
