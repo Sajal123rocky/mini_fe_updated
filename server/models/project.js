@@ -13,7 +13,7 @@ const Project = mongoose.Schema({
 
   balance: {
     type: String,
-    // required: [true, "a project title must be provided"],
+    //required: [true, "a project title must be provided"],
   },
 
   walletaddress: {
@@ -23,7 +23,7 @@ const Project = mongoose.Schema({
 
   financeValidatoraddress: {
     type: String,
-    // required: [true],
+    //required: [true],
   },
 
   balance: {
@@ -37,8 +37,8 @@ const Project = mongoose.Schema({
   },
 
   contractAddress: {
-    type: String,
-    // required: [true],
+    type: Number,
+    //required: [true],
   },
 
   status: {

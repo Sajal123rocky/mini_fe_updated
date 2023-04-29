@@ -31,5 +31,4 @@ module.exports = {
   createProject,
   retrieveAllProjects,
   changeProjectStatus,
-  withdrawFunds,
 };
