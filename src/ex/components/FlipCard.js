@@ -14,14 +14,14 @@ function FlipCard(props) {
 			<div style={{
                 
 				width: '250px',
-				height: '350px',
+				height: '200px',
 				background: 'rgba(29,28,35,255)',
 				color: 'green',
 				margin: '10px',
 				borderRadius: '10%',
 				
 			}} onClick={() => setFlip(!flip)}>
-            <img src={props.img} alt="none" className="item5"/> 
+            {/* <img src={props.img} alt="none" className="item5"/>  */}
             <div className="flip-container">
                 <div className="item1">{props.name}</div>
                 <div className="item2">{props.balance}<div className="Balance">Balance</div></div>
@@ -34,7 +34,7 @@ function FlipCard(props) {
 			<div style={{
     
                 width: '250px',
-				height: '350px',
+				height: '200px',
 				background: 'rgba(29,28,35,255)',
 				color: 'white',
 				margin: '10px',

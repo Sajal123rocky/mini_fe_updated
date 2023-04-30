@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect,useState} from 'react'
 import { Link } from "react-router-dom";
 import MainLayout from '../mainlayout/MainLayout';
 import { AiOutlineSearch } from "react-icons/ai";
@@ -8,15 +8,29 @@ import TextField from "@mui/material/TextField";
 import FlipCard from "../components/FlipCard";
 import { CiSearch } from "react-icons/ci";
 function Project() {
+  const [projectList,setProjectList]=useState([]);
+  useEffect(() =>{
+    async function fetchProjectList() {
+      try{
+        const requestUrl='http://127.0.0.1:8000/project';
+        const response = await fetch(requestUrl);
+        const responseJSON=await response.json();
+        console.log(responseJSON);
+        setProjectList(responseJSON);
+      }
+      catch{}
+    }
+    fetchProjectList();
+  },[]);
   function projects(entry){
     return(
       <FlipCard
-      key={entry.id}
-      name={entry.name}
-      img={entry.img}
-      content={entry.content}
-      address={entry.address}
-      fund={entry.fund}
+       key={entry._id}
+      name={entry.title}
+      //img={entry.img}
+      content={entry.description}
+      address={entry.contractAddress}
+      fund={entry.totalFunds}
       balance={entry.balance}
       
       />
@@ -66,7 +80,7 @@ function Project() {
       {/* movieinfos.filter(movie => movie.title.includes(searchWord)).map(movie => return <Movie_card key={movie.Title} data={movie} />) */}
       <div className="prcard">
       <p className='prcontent'>Project List</p><br />
-      {project.filter(projects => projects.name.includes(searchWord)).map(projects)}
+      {projectList.filter(projects => projects.title.includes(searchWord)).map(projects)}
       </div>
     </div>
         
