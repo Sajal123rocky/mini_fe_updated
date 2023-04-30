@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const Request = mongoose.Schema({
-  projectId: {
-    type: mongoose.Schema.Types.ObjectId,
+  projectTitle: {
+    type: String,
+    // type: mongoose.Schema.Types.ObjectId,
     // required: [true],
   },
 
