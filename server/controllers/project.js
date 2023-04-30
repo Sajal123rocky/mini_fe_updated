@@ -25,10 +25,15 @@ const changeProjectStatus = async (req, res) => {
     .json({ "message ": "project status updated successfully" });
 };
 
-
+const deleteProject = async (req, res) => {
+  console.log("entered delete project controller");
+  await Project.findByIdAndDelete(req.params.id);
+  res.status(StatusCodes.NO_CONTENT);
+};
 
 module.exports = {
   createProject,
   retrieveAllProjects,
   changeProjectStatus,
+  deleteProject,
 };

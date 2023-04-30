@@ -5,10 +5,11 @@ const {
   createProject,
   retrieveAllProjects,
   changeProjectStatus,
+  deleteProject,
 } = require("../controllers/project");
 
 router.route("/").post(createProject).get(retrieveAllProjects);
-// router.route("/:id").post(withdrawFunds);
 router.route("/stat/:id").post(changeProjectStatus);
+router.route("/:id").delete(deleteProject);
 
 module.exports = router;
