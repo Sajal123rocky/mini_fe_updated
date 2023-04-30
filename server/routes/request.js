@@ -5,4 +5,5 @@ const { createRequest, fetchAllRequests } = require("../controllers/request");
 
 router.route("/").post(createRequest).get(fetchAllRequests);
 
-module.exports = router ;
+module.exports = router;
+
