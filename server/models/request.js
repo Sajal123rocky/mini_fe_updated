@@ -3,22 +3,22 @@ const mongoose = require("mongoose");
 const Request = mongoose.Schema({
   projectId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: [true],
+    // required: [true],
   },
 
   amount: {
     type: Number,
-    required: [true],
+    // required: [true],
   },
 
   supervisorMailId: {
     type: String,
-    required: [true],
+    // required: [true],
   },
 
   recipientWalletAddress: {
     type: String,
-    required: [true],
+    // required: [true],
   },
 
   billProofLink: {

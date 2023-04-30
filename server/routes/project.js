@@ -3,11 +3,13 @@ const router = express.Router();
 
 const {
   createProject,
-  withdraw,
   retrieveAllProjects,
+  changeProjectStatus,
+  deleteProject,
 } = require("../controllers/project");
 
 router.route("/").post(createProject).get(retrieveAllProjects);
-router.route("/:pid").post(withdraw);
+router.route("/stat/:id").post(changeProjectStatus);
+router.route("/:id").delete(deleteProject);
 
 module.exports = router;
