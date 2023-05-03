@@ -9,6 +9,12 @@ const createProject = async (req, res) => {
     .json({ message: "project created successfully", project });
 };
 
+const getProjectById = async (req, res) => {
+  console.log("Entered get project by id contract");
+  const project = await Project.findById(req.params.id);
+  return res.status(StatusCodes.OK).json(project);
+};
+
 const retrieveAllProjects = async (req, res) => {
   console.log("entered get all projects controller");
   const projects = await Project.find();
@@ -36,4 +42,5 @@ module.exports = {
   retrieveAllProjects,
   changeProjectStatus,
   deleteProject,
+  getProjectById,
 };

@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const Transaction = mongoose.Schema({
   projectId: {
-    // type: mongoose.Schema.Types.ObjectId,
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: [true, "please provide the corresponding project id"],
   },
   transactionType: {
