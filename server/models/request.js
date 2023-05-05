@@ -8,7 +8,7 @@ const Request = mongoose.Schema({
   },
 
   amount: {
-    type: Number,
+    type: String,
     // required: [true],
   },
 

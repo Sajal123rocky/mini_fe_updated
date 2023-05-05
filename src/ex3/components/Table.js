@@ -1,8 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {ethers} from 'ethers';
+import  contract from '../../../artifacts/contracts/ProjectHandler.sol/ProjectHandler.json';
 function Table(props) {
   const status=props.status;
   const type=props.type;
+  const {ethereum}=window;
+  const contractAddress="0xA81191856C3C6a4f3AE9A30f4242E58367c44bD0"
+  const infuraProvider=new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/8be48f55cae24d3a950b0541945aba02")
+  const walletProvider=new ethers.providers.Web3Provider(ethereum);
+  const getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
+  const sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
+ 
+  // const getGreeting=async()=>{
+  //   const data=await getContractData.getBalance();
+  //   console.log(data);
+  // }//use to get contract data 
+  var receipent="0x983aCc74cd696Cd1D8b5D82D6912fF8571aE96F7"
+  const setGreeting=async(val)=>{
+    //console.log(val);
+    //var a=ethers.utils.parseEther('0.01');
+    //var b="10000000000000000"
+    try{
+    const sendData=await sendContractTx.withdraw(receipent,val)
+    const transactionReceipt = await sendData.wait();
+    alert("success")
+    const getContractData=await getContractData.getBalance();
+    console.log(getContractData);
+  }
+  catch(err){
+    alert(err.message);
+  }
+    
+    
+  }
   return (
     <div className="maintable">
     <div className="tablecontainer">
@@ -33,7 +64,8 @@ borderRadius: '10px',
 }} >
 Reject</button>
         </Link></div>
-    <div className="t6"><Link to='/Success' >
+    <div className="t6">
+    {/* <Link to='/Success' > */}
 				
         <button className="flipbuttonjhj" onclick="confirm('hello')" style={{
         
@@ -45,9 +77,10 @@ fontWeight: 'bold',
 borderRadius: '10px',
 marginLeft:'200px',
         
-}} >
+}} onClick={()=>setGreeting(props.amount)}>
 Accept</button>
-        </Link></div>  
+        {/* </Link> */}
+        </div>  
     {/* <div className="t7" >{props.url}</div> */}
     
     

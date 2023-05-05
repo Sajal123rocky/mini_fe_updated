@@ -1,41 +1,42 @@
 
 import MainLayout from '../mainlayout/MainLayout';
 import {Link} from "react-router-dom"
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {ethers} from 'ethers';
+import  contract from '../../../artifacts/contracts/ProjectHandler.sol/ProjectHandler.json';
 //import Success from "../pages/Success"
 function CHome() {
-//   const navigate = useNavigate();
-
-//     const url="http://127.0.0.1:8000/project";
-//     const [data,setData]=useState({
-//       name:"",
-//       des:"",
-//       addr:""
-//     })
-//     function handle(e){
-//       const newdata={...data}
-//       newdata[e.target.id]=e.target.value
-//       setData(newdata);
-//       console.log(newdata);
-//     }
-//     function submit(e){
-//       e.preventDefault();
-//       Axios.post(url,{
-//         title:data.name,
-//         description:data.des,
-//         walletaddress:data.addr
-
-//       })
-//       .then(res=>{
-//         //navigate(".././pages/Success");
-        
-//         alert("Success");
-//       })
-//       .catch(err => alert("project not created")); 
-//     }
-  //const [selectedImage, setSelectedImage] = useState(null);
+ 
+  const {ethereum}=window;
+  const contractAddress="0xA81191856C3C6a4f3AE9A30f4242E58367c44bD0"
+  const infuraProvider=new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/8be48f55cae24d3a950b0541945aba02")
+  const walletProvider=new ethers.providers.Web3Provider(ethereum);
+  const getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
+  const sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
+ 
+  const getGreeting=async()=>{
+    const data=await getContractData.getBalance();
+    console.log(data);
+  }//use to get contract data 
+  
+  const setGreeting=async(val)=>{
+    try{
+    const sendData=await sendContractTx.Deposit({
+      value:ethers.utils.parseEther(val)
+    })
+    const transactionReceipt = await sendData.wait();
+    alert("success")
+    const data=await getContractData.getBalance();
+    console.log(data);
+  }
+  catch(err){
+    alert(err.message);
+  }
+    
+    
+  }
   return (
     
     <MainLayout>
@@ -57,10 +58,10 @@ function CHome() {
           fontWeight: 'bold',
           borderRadius: '10px',
           marginLeft: '40px',
-          }} >
+          }} onClick={()=>setGreeting(document.getElementById('addr').value)}>
         Create</button>
         {/* </Link> */}
-        
+        <button onClick={()=>getGreeting()}>getBalance</button>
       </div>
     
     </MainLayout>

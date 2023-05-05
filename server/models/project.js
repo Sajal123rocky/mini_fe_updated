@@ -37,7 +37,7 @@ const Project = mongoose.Schema({
   },
 
   contractAddress: {
-    type: Number,
+    type: String,
     //required: [true],
   },
 
