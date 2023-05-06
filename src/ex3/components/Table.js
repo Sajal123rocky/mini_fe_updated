@@ -1,4 +1,5 @@
 import React from "react";
+import Axios from "axios";
 import { Link } from "react-router-dom";
 import {ethers} from 'ethers';
 import  contract from '../../../artifacts/contracts/ProjectHandler.sol/ProjectHandler.json';
@@ -11,7 +12,30 @@ function Table(props) {
   const walletProvider=new ethers.providers.Web3Provider(ethereum);
   const getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
   const sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
- 
+  async function getTransactionHistory() {
+    const apiKey = 'UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7';
+    const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address="+contractAddress+"&startblock=0&endblock=99999999&page=1&offset=20&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
+    console.log(apiUrl);
+    try {
+      const response = await Axios.get(apiUrl);
+      const transactions = response.data.result;
+      return transactions;
+      
+
+      // Process the transaction data as needed
+      // for(let i = 0; i < transactions.length; i++) 
+      // {
+      //   console.log("transaction no. "+(i+1));
+      //   console.log(transactions[i].hash);
+      //   console.log(transactions[i].from);
+      //   console.log(transactions[i].to);
+      //   console.log(ethers.utils.formatEther(transactions[i].value));
+      // }
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
   // const getGreeting=async()=>{
   //   const data=await getContractData.getBalance();
   //   console.log(data);
