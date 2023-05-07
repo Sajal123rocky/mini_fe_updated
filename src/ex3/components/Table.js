@@ -7,32 +7,29 @@ function Table(props) {
   const status=props.status;
   const type=props.type;
   const {ethereum}=window;
-  const contractAddress="0xA81191856C3C6a4f3AE9A30f4242E58367c44bD0"
+  const contractAddress="0x89f62d4255736aaa506ae55dd175ca9e20a93fbe"
   const infuraProvider=new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/8be48f55cae24d3a950b0541945aba02")
   const walletProvider=new ethers.providers.Web3Provider(ethereum);
   const getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
   const sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
   async function getTransactionHistory() {
-    const apiKey = 'UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7';
-    const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address="+contractAddress+"&startblock=0&endblock=99999999&page=1&offset=20&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
-    console.log(apiUrl);
-    try {
-      const response = await Axios.get(apiUrl);
-      const transactions = response.data.result;
-      return transactions;
-      
+    try{
+    const eventName = 'FundWithdrawal'; // name of the event you want to filter by
+    const filter = getContractData.filters[eventName](); // create the filter object
+    const txList = await getContractData.queryFilter(filter); // get the list of events
 
-      // Process the transaction data as needed
-      // for(let i = 0; i < transactions.length; i++) 
-      // {
-      //   console.log("transaction no. "+(i+1));
-      //   console.log(transactions[i].hash);
-      //   console.log(transactions[i].from);
-      //   console.log(transactions[i].to);
-      //   console.log(ethers.utils.formatEther(transactions[i].value));
-      // }
-      
-    } catch (error) {
+    const txDetails = await Promise.all(
+      txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
+    );
+    const int=await infuraProvider.getTransaction(txDetails[txDetails.length-1].hash);
+    //console.log(int);
+    console.log(txDetails);
+    // console.log(txDetails[txDetails.length-1].hash);
+    // console.log(txDetails[txDetails.length - 1].from);
+    // console.log(txDetails[txDetails.length - 1].to);
+    return txDetails;
+    }
+    catch (error) {
       console.error(error);
     }
   }
@@ -44,13 +41,18 @@ function Table(props) {
   const setGreeting=async(val)=>{
     //console.log(val);
     //var a=ethers.utils.parseEther('0.01');
-    //var b="10000000000000000"
+    var b="10000000000000000"
     try{
-    const sendData=await sendContractTx.withdraw(receipent,val)
+    const sendData=await sendContractTx.withdraw(receipent,b);
     const transactionReceipt = await sendData.wait();
-    alert("success")
-    const getContractData=await getContractData.getBalance();
-    console.log(getContractData);
+    
+    const data=await getContractData.getBalance();
+    console.log(data);
+    const imglink=await getContractData.getLink();
+    console.log("image link is: "+imglink);
+    const trans=await getTransactionHistory()
+    console.log(trans[trans.length-1].hash);
+  alert("success")
   }
   catch(err){
     alert(err.message);
@@ -61,15 +63,6 @@ function Table(props) {
   return (
     <div className="maintable">
     <div className="tablecontainer">
-      
-      {/* <ul className="tablelists">
-        <li className="tli">{props.transid}</li>
-        <li className="tli">{props.name}</li>
-        <li className="tli">{props.to}</li>
-        <li className="tli">{props.amount}</li>
-        <li className="tli">{props.type}</li>
-        <li className="tli" style={{marginLeft:"35px"}}>{props.url}</li>
-    </ul> */}
     <div className="t1" >{props.name}</div> 
     <div className="t2">{props.amount} ETH</div>
     <div className="t33"><a href={props.url}>link</a></div> 
@@ -103,6 +96,7 @@ marginLeft:'200px',
         
 }} onClick={()=>setGreeting(props.amount)}>
 Accept</button>
+<button onClick={()=>getTransactionHistory()}>getHistory</button>
         {/* </Link> */}
         </div>  
     {/* <div className="t7" >{props.url}</div> */}

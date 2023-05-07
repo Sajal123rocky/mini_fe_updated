@@ -5,6 +5,7 @@ import App from './components/App';
 import Project from './pages/Project';
 import Details from './pages/Details';
 import Transactions from './pages/Transactions';
+import InternalTransactions from './pages/InternalTransactions';
 import Contact from './pages/Contact';
 import Login from './pages/Login'
 import Home from './pages/Home'
@@ -36,8 +37,12 @@ const router = createBrowserRouter([
     element: <Details />,
   },
   {
-    path: "transactions",
+    path: "/transactions/:address",
     element: <Transactions />,
+  },
+  {
+    path: "/internaltransactions/:address",
+    element: <InternalTransactions />,
   },
   {
     path: "contact",

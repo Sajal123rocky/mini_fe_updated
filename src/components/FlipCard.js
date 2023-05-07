@@ -14,12 +14,12 @@ function FlipCard(props) {
             
 			<div style={{
                 
-				width: '250px',
+				width: '500px',
 				height: '200px',
 				background: 'rgba(29,28,35,255)',
 				color: 'green',
 				margin: '10px',
-				borderRadius: '10%',
+				borderRadius: '2%',
 				
 			}} onClick={() => setFlip(!flip)}>
             {/* <img src={props.img} alt="none" className="item5"/>  */}
@@ -48,7 +48,7 @@ function FlipCard(props) {
                 <br/>
                 {props.content}
                 </div>
-                <Link to='/Transactions' >
+                <Link to={`/Transactions/${props.address}`} >
 				
                     <button className="flipbutton" style={{
                     
@@ -61,7 +61,22 @@ function FlipCard(props) {
 
                     
 				}} >
-					Transactions</button>
+					All Transactions</button>
+                    </Link>
+					<Link to={`/InternalTransactions/${props.address}`} >
+				
+                    <button className="flipbutton" style={{
+                    
+					width: '85px',
+					padding: '10px',
+					fontSize: '10px',
+					background: '#04AA6D',
+					fontWeight: 'bold',
+					borderRadius: '10px',
+
+                    
+				}} >
+					Contract Transactions</button>
                     </Link>
 				</div>
                 

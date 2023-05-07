@@ -10,10 +10,12 @@ function Login(){
     console.log(event.target.value);
     if(event.target.value==="admin")
     setName('/CHome');
-    if(event.target.value==="admin1")
+    else if(event.target.value==="admin1")
     setName('/Requestp');
-    if(event.target.value==="admin2")
+    else if(event.target.value==="admin2")
     setName('/Requestv');
+    else
+    setName('/Success');
   }
   function handleClick(event) {
     setHeading(name);
@@ -32,7 +34,7 @@ function Login(){
     <br></br>
     <input className="inp" type="password" placeholder="Enter Password" name="psw" required/>
     <br></br>
-    <Link to={headingText}>
+    <Link to={headingText} >
     <button className="but" onClick={handleClick}>Login</button>
     </Link>
   </div>

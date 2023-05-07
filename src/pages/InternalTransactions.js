@@ -91,7 +91,7 @@ import  contract from '../../artifacts/contracts/ProjectHandler.sol/ProjectHandl
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
-class Transactions extends Component{
+class InternalTransactions extends Component{
   
   constructor(props){
     super(props);
@@ -109,7 +109,7 @@ class Transactions extends Component{
   async  componentDidMount(){
     const {address}=this.props.params;
     const apiKey = 'UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7';
-    const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
+    const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
     //const apiUrl2 = "https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
   
       const etherscan = await Axios.get(apiUrl);
@@ -148,7 +148,7 @@ class Transactions extends Component{
     const {result}=this.state;
     const obj=Array.from(result);
     return(
-      <MainLayout>
+      <MainLayout>  
       <div style={{color:"white"}}>
       <h1>Hello</h1>
       {
@@ -158,15 +158,13 @@ class Transactions extends Component{
         <div>From:{res.from}</div>
         <div>To:{res.to}</div>
         <div>Amount:{ethers.utils.formatEther(res.value)}</div>
-        <div>Type:{res.functionName}</div>
         </div>
         )
       }
-      </div>  
-      </MainLayout>   
-    
+      </div>     
+      </MainLayout>
     );
   };
 
 }
-export default withParams(Transactions);
+export default withParams(InternalTransactions);

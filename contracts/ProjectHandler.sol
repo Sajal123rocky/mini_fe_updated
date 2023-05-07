@@ -3,7 +3,8 @@ pragma solidity 0.8.7;
 error Unauthorized();   //Mention of Error for notOwner(Unauthorized access)
 error InsufficientBalance(uint256 available, uint256 required); // Insufficient balance for transfer. Needed `required` but only `available` available.
 //Contract for individual project       
-contract ProjectHandler{   
+contract ProjectHandler{  
+   
     address  immutable owner; //Variable to store contract owners address
     address  immutable financeValidator;    //Variable to store finance team bill validator wallet address
     uint256  totalFundsAllocated;   //Variable to store total funds allocated to the project till completion
@@ -17,7 +18,9 @@ contract ProjectHandler{
         financeValidator = _financeValidator;
         totalFundsAllocated = 0;
         balance = 0;
+       
         totalTransactions = 0;
+       
     }
     event FundDeposit(uint256 indexed _transactionId,uint256 _fundAmount);  //event that triggers during fund deposits
     event FundWithdrawal(uint256 indexed _transactionId,uint256 _withdrawAmount);  //event that triggers during fund withdrawals
@@ -87,6 +90,7 @@ contract ProjectHandler{
             recipients.push(_recipientWallet);
         }
         recipientAddressToTotalAmount[_recipientWallet] += _withdrawAmount;
+        
     }
     //Function to be used when project goals are met to return 
     function projectCompleted() public onlyOwner(){
@@ -117,6 +121,7 @@ contract ProjectHandler{
     function getReceipientsTotalAmountTransferred(address _recipientWallet) view public returns(uint256){
         return recipientAddressToTotalAmount[_recipientWallet];
     }
+    
     receive() external payable{
         Deposit();
     }
