@@ -35,6 +35,7 @@ function Transactions(props) {
         // type={entry.type}
         url={entry.billProofLink}
         amount={entry.amount}
+        address={entry.contractAddress}
         // status={entry.status}
       />
     );

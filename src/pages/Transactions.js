@@ -150,7 +150,7 @@ class Transactions extends Component{
     return(
       <MainLayout>
       <div style={{color:"white"}}>
-      <h1>Hello</h1>
+      <h1>All Transactions</h1>
       {
         obj.map(res =>
         <div style={{margin:"10px"}}>
@@ -158,7 +158,7 @@ class Transactions extends Component{
         <div>From:{res.from}</div>
         <div>To:{res.to}</div>
         <div>Amount:{ethers.utils.formatEther(res.value)}</div>
-        <div>Type:{res.functionName}</div>
+        <div>Type:{res.functionName===""?"Deployed()":res.functionName}</div>
         </div>
         )
       }

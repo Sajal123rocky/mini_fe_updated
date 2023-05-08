@@ -25,7 +25,10 @@ const Request = mongoose.Schema({
   billProofLink: {
     type: String,
   },
-
+  contractAddress: {
+    type: String,
+    //required: [true],
+  },
   transactionStatus: {
     type: String,
     enum: ["successful", "unsuccessful"],

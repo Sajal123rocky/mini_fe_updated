@@ -9,7 +9,7 @@ import  MyContract from '../../../artifacts/contracts/ProjectHandler.sol/Project
 // import deploy from "../../../scripts/deploy"
 import { useNavigate } from "react-router-dom";
 //import Success from "../pages/Success"
-const privateKey="63ed8881e38a293ee9eb8ec815905e7c6b31e7b4d9d2fde39323a0c7793ce671"
+const privateKey="9ed047e4c36aaf4462cf9558815595feea310eaa67b036199f809ab78ecc5999"
 function CHome() {
   const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/8be48f55cae24d3a950b0541945aba02');
   const wallet = new ethers.Wallet(privateKey, provider);
@@ -18,7 +18,7 @@ function CHome() {
     e.preventDefault();
     // Deploy the contract to the Ethereum network
     try{
-    const contract = await contractFactory.deploy("0x390574c67B43eeB6c934604CA7c171E702819da9");
+    const contract = await contractFactory.deploy(document.getElementById('addr').value);
   
     // Wait for the contract to be mined
     await contract.deployed();

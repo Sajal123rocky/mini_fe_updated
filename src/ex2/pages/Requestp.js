@@ -22,14 +22,18 @@ function Home() {
       console.log(newdata);
     }
     
-    function submit(e){
+    async function submit(e){
       e.preventDefault();
-      const formData = new FormData();
+    const apiurl="http://127.0.0.1:8000/project/contract/"+data.name;
+    const response = await Axios.get(apiurl);
+    const Address=await response.data.contractAddress;  
+    const formData = new FormData();
     formData.append("projectTitle",data.name);
     formData.append("amount",data.amount);
     formData.append("recipientWalletAddress",data.addr);
     formData.append("supervisorMailId",data.email);
     formData.append("photo", file);
+    formData.append("contractAddress",Address);
     const resp = Axios.post(url, formData, {
       headers: {
         "content-type": "multipart/form-data",

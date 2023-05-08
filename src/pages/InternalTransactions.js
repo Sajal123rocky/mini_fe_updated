@@ -104,18 +104,23 @@ class InternalTransactions extends Component{
       functionName:[],
       res:[],
       result:{},
+      result2:{},
+      
     }
   }
   async  componentDidMount(){
     const {address}=this.props.params;
     const apiKey = 'UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7';
     const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
-    //const apiUrl2 = "https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
+    const apiUrl2 = "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
   
       const etherscan = await Axios.get(apiUrl);
       let res=etherscan.data.result;
       console.log(res);
       console.log(etherscan);
+     const etherscan2 = await Axios.get(apiUrl2);
+     let res2=etherscan2.data.result;
+     console.log(res2);
      let hashes = etherscan.data.result.map(tx => tx.hash);
      let froms = etherscan.data.result.map(tx => tx.from);
      let tos = etherscan.data.result.map(tx => tx.to);
@@ -139,18 +144,29 @@ class InternalTransactions extends Component{
         value:values,
         functionName:functionNames,
         result:res,
+        result2:res2,
+        
         
        })
       
   }
   render(){
     // const { address } = this.props.match.params;
-    const {result}=this.state;
+    const {result,result2}=this.state;
     const obj=Array.from(result);
+    const obj2=Array.from(result2);
+    if(obj.length===0)
+    {
+      return (
+        <MainLayout>
+        <h1 style={{color:"white" ,margin:"auto"}}>No Contract Transactions Yet</h1>
+        </MainLayout>
+      )
+    }
     return(
       <MainLayout>  
       <div style={{color:"white"}}>
-      <h1>Hello</h1>
+      <h1>Contract Transactions</h1>
       {
         obj.map(res =>
         <div style={{margin:"10px"}}>
@@ -158,6 +174,7 @@ class InternalTransactions extends Component{
         <div>From:{res.from}</div>
         <div>To:{res.to}</div>
         <div>Amount:{ethers.utils.formatEther(res.value)}</div>
+        <div>Type:{obj2.map(res2=><span >{res2.hash===res.hash?res2.functionName:""}</span>)}</div>
         </div>
         )
       }

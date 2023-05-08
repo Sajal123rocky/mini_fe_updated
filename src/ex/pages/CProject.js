@@ -36,7 +36,9 @@ function Project() {
       name={entry.title}
       //img={entry.img}
       content={entry.description}
+      waddress={entry.walletaddress}
       address={entry.contractAddress}
+      status={entry.status}
       fund={entry.totalFunds}
       balance={entry.balance}
       
