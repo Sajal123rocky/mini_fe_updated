@@ -51,9 +51,10 @@ function Table(props) {
     set(val1);
     try{
     const sendData=await sendContractTx.withdraw(receipent,a);
+    alert("processing please wait");
     const transactionReceipt = await sendData.wait();
-    const data=await getContractData.getBalance();
-    console.log(data);
+    // const data=await getContractData.getBalance();
+    // console.log(data);
   alert("success")
   }
   catch(err){

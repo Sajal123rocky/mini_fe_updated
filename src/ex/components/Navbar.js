@@ -1,11 +1,17 @@
 import React ,{useState} from 'react'
 import { BsPersonCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink,useNavigate } from "react-router-dom";
 import {ethers} from 'ethers';
 import { TfiUser } from "react-icons/tfi";
 
 function Navbar() {
+    const history = useNavigate();
+    function handleClick() {
+        // history.push('/Login');
+        // history.go(0); // clears the browser stack
+        history('/Login', { replace: true })
+      }
     const {ethereum}=window;
     const [address,setAddress]=useState('Connect Wallet')
     const [bgcolor, setBgcolor] = React.useState('black');
@@ -47,7 +53,7 @@ function Navbar() {
         
                 
         }}onClick={requestAccount}>Connect</button></li>
-            <li><NavLink to='/Login' className="login">< TfiUser /> Logout</NavLink></li>
+            <li><a href='/Login' className="login" onClick={()=>handleClick()}>< TfiUser /> Logout</a></li>
             
         {/* <ul className="navbar-login">
             <li className='login'><a href='/Login'><BsPersonCircle/>Login</a></li>

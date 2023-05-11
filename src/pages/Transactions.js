@@ -128,10 +128,6 @@ class Transactions extends Component{
       v:values,
       fn:functionNames,
      }
-    //  console.log(results);
-    //   console.log(hashes);
-    //   console.log(froms);
-      //console.log(result);
        this.setState({
         hash:hashes,
         from:froms,
@@ -147,6 +143,11 @@ class Transactions extends Component{
     // const { address } = this.props.match.params;
     const {result}=this.state;
     const obj=Array.from(result);
+    function convert(timestamp) {
+      const date = new Date(timestamp * 1000); 
+      const conv = date.toLocaleString();
+      return conv;
+    }
     return(
       <MainLayout>
       <div style={{color:"white"}}>
@@ -157,6 +158,7 @@ class Transactions extends Component{
         <div>TXN HASH:{res.hash}</div>
         <div>From:{res.from}</div>
         <div>To:{res.to}</div>
+        <div>Date and Time:{convert(res.timeStamp)}</div>
         <div>Amount:{ethers.utils.formatEther(res.value)}</div>
         <div>Type:{res.functionName===""?"Deployed()":res.functionName}</div>
         </div>

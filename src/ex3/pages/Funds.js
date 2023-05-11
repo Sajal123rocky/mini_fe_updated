@@ -103,13 +103,16 @@ function CHome() {
   }//use to get contract data 
   
   const setGreeting=async(val)=>{ 
+    
     try{
+     
     const sendData=await sendContractTx.Deposit({
       value:ethers.utils.parseEther(val)
     })
+    alert("processing please wait") 
     const transactionReceipt = await sendData.wait();
-    const datas=await getContractData.getBalance();
-    console.log(ethers.utils.formatEther(datas));
+    // const datas=await getContractData.getBalance();
+    // console.log(ethers.utils.formatEther(datas));
     // const trans=await getTransactionHistory()
     // console.log(trans[trans.length-1].hash);
     
