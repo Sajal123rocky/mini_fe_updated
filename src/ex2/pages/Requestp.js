@@ -34,13 +34,15 @@ function Home() {
     formData.append("supervisorMailId",data.email);
     formData.append("photo", file);
     formData.append("contractAddress",Address);
+    alert("please wait processing...")
     const resp = Axios.post(url, formData, {
       headers: {
         "content-type": "multipart/form-data",
        
       },
-    }).then(res=>{alert("success")})
+    }).then(res=>{alert("success");window.location.reload();})
     .catch(err=>alert("error"));
+    
     //alert(resp.status === 200 ? "Thank you!" : "Error.");
     //   Axios.post(url,{
     //     projectTitle:data.name,

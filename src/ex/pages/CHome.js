@@ -29,6 +29,7 @@ function CHome() {
       contractAddress:contract.address
     }).then(alert("project created successfully"));
     console.log(contract.address);
+    window.location.reload();
   }
    
     catch(err){

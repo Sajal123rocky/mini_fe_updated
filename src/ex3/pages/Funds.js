@@ -124,7 +124,8 @@ function CHome() {
       
     //   // Process the transaction data as needed
     //   console.log(transactions);
-      alert("success")
+      alert("success");
+      window.location.reload();
   }
   catch(err){
     alert(err.message);

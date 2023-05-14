@@ -104,15 +104,22 @@ class Transactions extends Component{
       functionName:[],
       res:[],
       result:{},
+      balance:"",
+      addr:""
     }
   }
   async  componentDidMount(){
     const {address}=this.props.params;
+    const apibal="https://api-sepolia.etherscan.io/api?module=account&action=balance&address="+address+"&tag=latest&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
     const apiKey = 'UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7';
     const apiUrl = "https://api-sepolia.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
     //const apiUrl2 = "https://api-sepolia.etherscan.io/api?module=account&action=txlistinternal&address="+address+"&startblock=0&endblock=99999999&page=1&offset=30&sort=asc&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
   
       const etherscan = await Axios.get(apiUrl);
+      const etherscanbal=await Axios.get(apibal);
+      let resbal=etherscanbal.data.result;
+      let bal=ethers.utils.formatEther(resbal);
+      console.log("bal"+ethers.utils.formatEther(resbal));  
       let res=etherscan.data.result;
       console.log(res);
       console.log(etherscan);
@@ -127,43 +134,49 @@ class Transactions extends Component{
       t:tos,
       v:values,
       fn:functionNames,
+      
      }
        this.setState({
-        hash:hashes,
         from:froms,
-        to:tos,
-        value:values,
-        functionName:functionNames,
         result:res,
+        balance:bal,
         
        })
       
   }
   render(){
-    // const { address } = this.props.match.params;
-    const {result}=this.state;
+    const { address } = this.props.params;
+    const {result,balance,from}=this.state;
     const obj=Array.from(result);
     function convert(timestamp) {
       const date = new Date(timestamp * 1000); 
       const conv = date.toLocaleString();
       return conv;
     }
+    function trims(funcSignature){
+    const funcName = funcSignature.split('(')[0];
+    return funcName;
+    }
     return(
       <MainLayout>
+      <h1 style={{color:"white"}}>All Transactions</h1>
+      <br></br>
       <div style={{color:"white"}}>
-      <h1>All Transactions</h1>
+      <div style={{fontSize:"30px"}}>Balance: {balance}</div>
+      <div>Contract creator:{from[0]}</div>
       {
         obj.map(res =>
-        <div style={{margin:"10px"}}>
-        <div>TXN HASH:{res.hash}</div>
-        <div>From:{res.from}</div>
-        <div>To:{res.to}</div>
-        <div>Date and Time:{convert(res.timeStamp)}</div>
-        <div>Amount:{ethers.utils.formatEther(res.value)}</div>
-        <div>Type:{res.functionName===""?"Deployed()":res.functionName}</div>
+        <div style={{margin:"10px",backgroundColor:"rgba(29,28,35,255)",width:"680px",height:"205px",margin:"auto",marginTop:"10px",paddingLeft:"10px",paddingTop:"10px",borderRadius:"10px"}}>
+        <div>TXN HASH:{res.hash}</div><br></br>
+        <div>From:{res.from}</div><br></br>
+        <div>To:{res.to===""?"Contract Created ("+address+")":res.to}</div><br></br>
+        <div>Date and Time:{convert(res.timeStamp)}</div><br></br>
+        <div>Amount:{ethers.utils.formatEther(res.value)}</div><br></br>
+        <div>Type:{res.functionName===""?"Deployed":trims(res.functionName)}</div>
         </div>
         )
       }
+      <div>Dont't Trust us? <a href="https://sepolia.etherscan.io/" target="_blank" rel="noopener noreferrer" >Click here to verify</a></div>
       </div>  
       </MainLayout>   
     

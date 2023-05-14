@@ -82,7 +82,7 @@ function FlipCard(props) {
                 <br/>
                 {props.content}
                 </div>
-                <Link to={`/Transactions/${props.address}`} >
+              
 				
                     <button className="flipbutton" style={{
                     
@@ -95,9 +95,10 @@ function FlipCard(props) {
 
                     
 				}} >
-					All Transactions</button>
-                    </Link>
-					<Link to={`/InternalTransactions/${props.address}`} >
+				  <Link style={{color:"black"}}to={`/Transactions/${props.address}`} >
+					All Transactions</Link></button>
+                    
+					
 				
                     <button className="flipbutton" style={{
                     
@@ -107,11 +108,12 @@ function FlipCard(props) {
 					background: '#04AA6D',
 					fontWeight: 'bold',
 					borderRadius: '10px',
-					marginLeft:'290px'
+					marginLeft:'290px',
                     
 				}} >
-					Contract Transactions</button>
-                    </Link>
+				<Link style={{color:"black"}}to={`/InternalTransactions/${props.address}`} >
+					Contract Transactions</Link></button>
+                    
 				</div>
                 
 			

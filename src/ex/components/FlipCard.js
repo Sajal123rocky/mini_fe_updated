@@ -60,6 +60,7 @@ function FlipCard(props) {
     const datas=await getContractData.getBalance();
     console.log(ethers.utils.formatEther(datas));
     alert("project closed successfully")
+    window.location.reload();
     }
     else{
       alert("project not closed");
