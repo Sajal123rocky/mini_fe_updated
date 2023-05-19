@@ -7,7 +7,10 @@ import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {ethers} from 'ethers';
 import  contract from '../../artifacts/contracts/ProjectHandler.sol/ProjectHandler.json';
-
+import image from '../../public/images_cleanup.jpg'
+import image2 from '../../public/How-do-Ethereum-Transacions-Work.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 // function Transactions() {
 //   const { address } = useParams();
   
@@ -105,9 +108,13 @@ class Transactions extends Component{
       res:[],
       result:{},
       balance:"",
-      addr:""
+      addr:"",
+       selectedFilter: "All", 
     }
   }
+   handleFilterChange = (event) => {
+    this.setState({ selectedFilter: event.target.value });
+  };
   async  componentDidMount(){
     const {address}=this.props.params;
     const apibal="https://api-sepolia.etherscan.io/api?module=account&action=balance&address="+address+"&tag=latest&apikey=UCH1QJ49W4YNXZ9KXFZ923CNNIJV3P12Y7"
@@ -140,14 +147,21 @@ class Transactions extends Component{
         from:froms,
         result:res,
         balance:bal,
-        
+        addr:address
        })
       
   }
   render(){
     const { address } = this.props.params;
-    const {result,balance,from}=this.state;
+   
+    const {result,balance,addr}=this.state;
     const obj=Array.from(result);
+    obj.reverse();
+    const filteredTransactions =
+      this.state.selectedFilter === "All"
+        ? obj
+        : obj.filter((res) => res.functionName === this.state.selectedFilter);
+
     function convert(timestamp) {
       const date = new Date(timestamp * 1000); 
       const conv = date.toLocaleString();
@@ -157,20 +171,32 @@ class Transactions extends Component{
     const funcName = funcSignature.split('(')[0];
     return funcName;
     }
+    function handleCopy(){}//hello
     return(
       <MainLayout>
       <h1 style={{color:"white"}}>All Transactions</h1>
       <br></br>
+       <Link style={{color:"white"}}to={`/Transactions/${addr}`} >
+					<button>All Transactions</button></Link>
+          <br></br>
+      <Link style={{color:"white"}}to={`/InternalTransactions/${addr}`} >
+					<button>Contract Transactions</button></Link>
       <div style={{color:"white"}}>
-      <div style={{fontSize:"30px"}}>Balance: {balance}</div>
-      <div>Contract creator:{from[0]}</div>
+      <span style={{fontSize:"30px"}}>Balance: {balance}</span>
+       <select value={this.state.selectedFilter} onChange={this.handleFilterChange}>
+            <option value="All">All</option>
+            <option value="Deposit()">Deposit</option>
+            <option value="projectCompleted()">Project Completed</option>
+            <option value="withdraw(address token, uint256 amount)">Withdraw</option>
+            {/* Add other options based on available function names */}
+          </select>
       {
-        obj.map(res =>
-        <div style={{margin:"10px",backgroundColor:"rgba(29,28,35,255)",width:"680px",height:"205px",margin:"auto",marginTop:"10px",paddingLeft:"10px",paddingTop:"10px",borderRadius:"10px"}}>
-        <div>TXN HASH:{res.hash}</div><br></br>
+        filteredTransactions.map(res =>
+        <div style={{margin:"10px",width:"680px",height:"210px",margin:"auto",marginTop:"10px",paddingLeft:"10px",paddingTop:"10px",borderRadius:"10px",backgroundSize: 'cover',backgroundPosition: 'center', backgroundColor:'rgba(29,28,35,255)'}}>
+        <div >TXN HASH:{res.hash}</div><br></br>
         <div>From:{res.from}</div><br></br>
         <div>To:{res.to===""?"Contract Created ("+address+")":res.to}</div><br></br>
-        <div>Date and Time:{convert(res.timeStamp)}</div><br></br>
+        <div style={{}}>Date and Time:{convert(res.timeStamp)}</div><br></br>
         <div>Amount:{ethers.utils.formatEther(res.value)}</div><br></br>
         <div>Type:{res.functionName===""?"Deployed":trims(res.functionName)}</div>
         </div>

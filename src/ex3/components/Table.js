@@ -19,27 +19,32 @@ function Table(props) {
    getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
    sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
   }
-  // async function getTransactionHistory() {
-  //   try{
-  //   const eventName = 'FundWithdrawal'; // name of the event you want to filter by
-  //   const filter = getContractData.filters[eventName](); // create the filter object
-  //   const txList = await getContractData.queryFilter(filter); // get the list of events
+  async function getTransactionHistory(val,val1) {
+    set(val);
+    try{
+    const eventName = 'FundWithdrawal'; // name of the event you want to filter by
+    const filter = getContractData.filters[eventName](); // create the filter object
+    const txList = await getContractData.queryFilter(filter); // get the list of events
 
-  //   const txDetails = await Promise.all(
-  //     txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
-  //   );
-  //   const int=await infuraProvider.getTransaction(txDetails[txDetails.length-1].hash);
-  //   //console.log(int);
-  //   console.log(txDetails);
-  //   // console.log(txDetails[txDetails.length-1].hash);
-  //   // console.log(txDetails[txDetails.length - 1].from);
-  //   // console.log(txDetails[txDetails.length - 1].to);
-  //   return txDetails;
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+    const txDetails = await Promise.all(
+      txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
+    );
+    const int=await infuraProvider.getTransaction(txDetails[txDetails.length-1].hash);
+    //console.log(int);
+    const newArr = txDetails.map(obj => ({ ...obj, eventName }));
+    const newArr2 = newArr.map(obj => ({ ...obj, val1 }));
+    console.log(txDetails);
+    console.log("After image link");
+    console.log(newArr2)
+    // console.log(txDetails[txDetails.length-1].hash);
+    // console.log(txDetails[txDetails.length - 1].from);
+    // console.log(txDetails[txDetails.length - 1].to);
+    return txDetails;
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
   // const getGreeting=async()=>{
   //   const data=await getContractData.getBalance();
   //   console.log(data);
@@ -103,7 +108,7 @@ Accept</button>
         </div>  
     {/* <div className="t7" >{props.url}</div> */}
     
-    
+    <button onClick={()=>getTransactionHistory(props.address,props.url)}></button>
     </div>
     </div>
   );

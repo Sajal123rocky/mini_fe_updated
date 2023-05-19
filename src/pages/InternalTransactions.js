@@ -105,7 +105,7 @@ class InternalTransactions extends Component{
       res:[],
       result:{},
       result2:{},
-      
+      addr:"",
     }
   }
   async  componentDidMount(){
@@ -145,14 +145,14 @@ class InternalTransactions extends Component{
         functionName:functionNames,
         result:res,
         result2:res2,
-        
+        addr:address,
         
        })
       
   }
   render(){
     // const { address } = this.props.match.params;
-    const {result,result2}=this.state;
+    const {result,result2,addr}=this.state;
     const obj=Array.from(result);
     const obj2=Array.from(result2);
     if(obj.length===0)
@@ -167,6 +167,11 @@ class InternalTransactions extends Component{
       <MainLayout>  
       <div style={{color:"white"}}>
       <h1>Contract Transactions</h1>
+      <Link style={{color:"white"}}to={`/Transactions/${addr}`} >
+					All Transactions</Link>
+          <br></br>
+      <Link style={{color:"white"}}to={`/InternalTransactions/${addr}`} >
+					Contract Transactions</Link>
       {
         obj.map(res =>
         <div style={{margin:"10px"}}>

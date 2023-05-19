@@ -206,7 +206,7 @@
  width:100vw;
  /* text-align:center; */
   /* Center horizontally*/
- margin-top:2%;
+ margin-top:1%;
  /* font-size:50px; */
 }
 .home-tagline{
@@ -298,15 +298,17 @@
 .home-image{
   float:left; 
   /* margin-left:10px; */
-  margin-left: 0.75%;
+  margin-left: 10%;
   margin-top:10px;
   border-radius: 20px;
+  height:466.285px;
 }
 .home1{
   background-color:rgba(29,28,35,255);
-  float:left;
+  position:absolute;
+  /* float:left; */
   margin-top:10px;
-  margin-left:10px;
+  left:60%;
   height: 466.285px;
   width:400px;
   border-radius: 20px;

@@ -69,10 +69,14 @@ function CHome() {
 
     const txDetails = await Promise.all(
       txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
+      
     );
+    const newArr = txDetails.map(obj => ({ ...obj, eventName }));
     console.log(txDetails);
     // console.log(txDetails[txDetails.length - 1].from);
     // console.log(txDetails[txDetails.length - 1].to);
+    console.log("\nAfter adding")
+    console.log(newArr);
     return txDetails;
     }
      catch (error) {
