@@ -16,10 +16,12 @@ const createRequest = async (req, res) => {
   console.log(newRequest);
 };
 
+//complete
 const changeRequestStatus = async (req, res) => {
+  const { status } = req.body;
   console.log("entered change project controller");
   await Request.findByIdAndUpdate(req.params.id, {
-    transactionStatus: "successful",
+    transactionStatus: status,
   });
   res
     .status(StatusCodes.OK)

@@ -54,5 +54,5 @@ module.exports = {
   changeProjectStatus,
   deleteProject,
   getProjectById,
-  getContractAddressByTitle
+  getContractAddressByTitle,
 };
