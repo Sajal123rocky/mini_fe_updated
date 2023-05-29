@@ -46,6 +46,10 @@ const Project = mongoose.Schema({
     enum: ["ongoing", "closed"],
     default: "ongoing",
   },
+
+  billProofLink: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("project", Project);
