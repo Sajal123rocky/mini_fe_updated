@@ -6,11 +6,11 @@ const {
   retrieveAllProjects,
   changeProjectStatus,
   deleteProject,
-  getProjectById,
+  getContractAddressByTitle,
 } = require("../controllers/project");
 
 router.route("/").post(createProject).get(retrieveAllProjects);
 router.route("/stat/:id").post(changeProjectStatus);
-router.route("/:id").delete(deleteProject).get(getProjectById);
+router.route("/:id").delete(deleteProject).get(getContractAddressByTitle);
 
 module.exports = router;
