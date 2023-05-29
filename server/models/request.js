@@ -34,6 +34,11 @@ const Request = mongoose.Schema({
     enum: ["rejected", "accepted", "pending"],
     default: "pending",
   },
+
+  viewed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("request", Request);

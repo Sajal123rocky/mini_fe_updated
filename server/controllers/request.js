@@ -22,6 +22,7 @@ const changeRequestStatus = async (req, res) => {
   console.log("entered change project controller");
   await Request.findByIdAndUpdate(req.params.id, {
     transactionStatus: status,
+    viewed: true,
   });
   res
     .status(StatusCodes.OK)
@@ -36,7 +37,7 @@ const fetchRequest = async (req, res) => {
 };
 
 const fetchAllRequests = async (req, res) => {
-  const requests = await Request.find();
+  const requests = await Request.find({ viewed: false });
   res.status(StatusCodes.OK).json(requests);
 };
 
