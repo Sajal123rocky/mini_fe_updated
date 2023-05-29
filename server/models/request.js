@@ -31,7 +31,7 @@ const Request = mongoose.Schema({
   },
   transactionStatus: {
     type: String,
-    enum: ["rejected", "accepted"],
+    enum: ["rejected", "accepted", "pending"],
     default: "pending",
   },
 });
