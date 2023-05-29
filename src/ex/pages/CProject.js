@@ -36,7 +36,9 @@ function Project() {
       name={entry.title}
       //img={entry.img}
       content={entry.description}
+      waddress={entry.walletaddress}
       address={entry.contractAddress}
+      status={entry.status}
       fund={entry.totalFunds}
       balance={entry.balance}
       
@@ -86,7 +88,8 @@ function Project() {
       {/* {filteredData.map(inputText)} */}
       {/* movieinfos.filter(movie => movie.title.includes(searchWord)).map(movie => return <Movie_card key={movie.Title} data={movie} />) */}
       <div className="prcard">
-      <p className='prcontent'>Project List</p><br />
+      <p style={{display:"inline"}}className='prcontent'>Project List <a href='/Project' target="_blank">(Click here to see Transactions)</a></p><br />
+    
       {projectList.filter(projects => projects.title.includes(searchWord)).map(projects)}
       </div>
     </div>

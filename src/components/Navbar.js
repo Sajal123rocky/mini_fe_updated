@@ -14,6 +14,7 @@ function Navbar() {
     
   return (
     <div >
+    
     <div className='Navbar'>
         <Link to="/Home"><h1 className='logo'>TrustMyFund</h1></Link>
         
@@ -29,6 +30,7 @@ function Navbar() {
             <li className='login'><a href='/Login'><BsPersonCircle/>Login</a></li>
         </ul> */}
         </ul>
+        
         </div>
     </div>
   )

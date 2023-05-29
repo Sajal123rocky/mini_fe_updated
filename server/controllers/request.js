@@ -13,6 +13,17 @@ const createRequest = async (req, res) => {
   const requestId = newRequest["_id"];
   sendEmail(supervisorMailId, requestId);
   res.status(StatusCodes.OK).json(newRequest);
+  console.log(newRequest);
+};
+
+const changeRequestStatus = async (req, res) => {
+  console.log("entered change project controller");
+  await Request.findByIdAndUpdate(req.params.id, {
+    transactionStatus: "successful",
+  });
+  res
+    .status(StatusCodes.OK)
+    .json({ "message ": "request status updated successfully" });
 };
 
 const fetchRequest = async (req, res) => {
@@ -31,4 +42,5 @@ module.exports = {
   createRequest,
   fetchAllRequests,
   fetchRequest,
+  changeRequestStatus,
 };

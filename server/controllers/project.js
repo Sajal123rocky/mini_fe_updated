@@ -37,10 +37,22 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.NO_CONTENT);
 };
 
+const getContractAddressByTitle = async (req, res) => {
+  const title = req.params.id;
+  const project = await Project.findOne({ title: title });
+  if (!project) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "project not found" });
+  } else {
+    res
+      .status(StatusCodes.OK)
+      .json({ contractAddress: project.contractAddress });
+  }
+};
 module.exports = {
   createProject,
   retrieveAllProjects,
   changeProjectStatus,
   deleteProject,
   getProjectById,
+  getContractAddressByTitle
 };
