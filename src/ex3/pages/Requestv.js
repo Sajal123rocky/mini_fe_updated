@@ -1,7 +1,7 @@
-import React from 'react'
+
 import MainLayout from '../mainlayout/MainLayout';
 import {Link, useLocation} from "react-router-dom";
-
+import React ,{useEffect,useState} from 'react'
 import Table from "../components/Table";
 import requestp from "../../projectrequest"
 function Transactions(props) {
@@ -11,16 +11,31 @@ function Transactions(props) {
   //       to:"doe",
   //       type:"wilidraw",
   //       url:"link1"
+  const [projectList,setProjectList]=useState([]);
+  useEffect(() =>{
+    async function fetchProjectList() {
+      try{
+        const requestUrl='http://127.0.0.1:8000/request';
+        const response = await fetch(requestUrl);
+        const responseJSON=await response.json();
+        console.log(responseJSON);
+        setProjectList(responseJSON);
+      }
+      catch{}
+    }
+    fetchProjectList();
+  },[]);
   function createTable(entry) {
     return (
       <Table
-        key={entry.id}
-        transid={entry.address}
-        name={entry.title}
+        key={entry._id}
+        transid={entry.recipientWalletAddress}
+        name={entry.projectTitle}
         // to={entry.to}
         // type={entry.type}
-        url={entry.url}
+        url={entry.billProofLink}
         amount={entry.amount}
+        address={entry.contractAddress}
         // status={entry.status}
       />
     );
@@ -54,7 +69,7 @@ function Transactions(props) {
         </ul>
          */}
          
-        {requestp.map(createTable)}  
+        {projectList.map(createTable)}  
        {/* {selectValue==="All" ? projects.map(createTable): projects.filter(createTable => createTable.type.includes(selectValue)).map(createTable)} */}
       {/* {projects.filter(createTable => createTable.type.includes(selectValue)).map(createTable)} */}
     </div>

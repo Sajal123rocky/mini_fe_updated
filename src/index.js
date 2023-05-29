@@ -5,6 +5,7 @@ import App from './components/App';
 import Project from './pages/Project';
 import Details from './pages/Details';
 import Transactions from './pages/Transactions';
+import InternalTransactions from './pages/InternalTransactions';
 import Contact from './pages/Contact';
 import Login from './pages/Login'
 import Home from './pages/Home'
@@ -15,7 +16,9 @@ import CHome from './ex/pages/CHome';
 import CProject from './ex/pages/CProject';
 import App1 from './ex/components/App';
 import Requestp from './ex2/pages/Requestp';
+import RequestMail from './ex2/pages/RequestMail';
 import Requestv from './ex3/pages/Requestv';
+import Funds from './ex3/pages/Funds';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,8 +37,12 @@ const router = createBrowserRouter([
     element: <Details />,
   },
   {
-    path: "transactions",
+    path: "/transactions/:address",
     element: <Transactions />,
+  },
+  {
+    path: "/internaltransactions/:address",
+    element: <InternalTransactions />,
   },
   {
     path: "contact",
@@ -76,6 +83,14 @@ const router = createBrowserRouter([
   {
     path: "requestv",
     element: <Requestv />,
+  },
+  {
+    path: "funds",
+    element: <Funds />,
+  },
+  {
+    path: "requestmail",
+    element: <RequestMail />,
   }
 ]);
 

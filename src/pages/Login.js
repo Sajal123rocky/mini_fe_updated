@@ -10,10 +10,12 @@ function Login(){
     console.log(event.target.value);
     if(event.target.value==="admin")
     setName('/CHome');
-    if(event.target.value==="admin1")
+    else if(event.target.value==="admin1")
     setName('/Requestp');
-    if(event.target.value==="admin2")
+    else if(event.target.value==="admin2")
     setName('/Requestv');
+    else
+    setName('/Success');
   }
   function handleClick(event) {
     setHeading(name);
@@ -22,7 +24,7 @@ function Login(){
     return(
       <MainLayout>
     <div>
-    <form action="action_page.php" method="post">
+    <form action={headingText} target="_blank" >
   <div class="imgcontainer">
     <img src="img_avatar2.png" alt="Avatar" class="avatar"/>
   </div>
@@ -32,9 +34,9 @@ function Login(){
     <br></br>
     <input className="inp" type="password" placeholder="Enter Password" name="psw" required/>
     <br></br>
-    <Link to={headingText}>
+    <a href={headingText} target="_blank" rel="noopener noreferrer">
     <button className="but" onClick={handleClick}>Login</button>
-    </Link>
+    </a>
   </div>
 </form>
 

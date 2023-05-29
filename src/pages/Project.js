@@ -28,11 +28,12 @@ function Project() {
        key={entry._id}
       name={entry.title}
       //img={entry.img}
+      waddress={entry.walletaddress}
       content={entry.description}
       address={entry.contractAddress}
       fund={entry.totalFunds}
       balance={entry.balance}
-      
+      status={entry.status}
       />
     );
   }
