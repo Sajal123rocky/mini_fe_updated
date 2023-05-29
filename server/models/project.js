@@ -50,6 +50,9 @@ const Project = mongoose.Schema({
   billProofLink: {
     type: String,
   },
+
+  
+
 });
 
 module.exports = mongoose.model("project", Project);
