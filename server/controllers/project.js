@@ -9,14 +9,11 @@ const createProject = async (req, res) => {
     .json({ message: "project created successfully", project });
 };
 
-const getProjectById = async(req , res) =>{
-  console.log("Entered get project") ;
-  const allpr = await Project.find() ;
-  console.log(allpr);
-  const requiredProject = await Project.findById(req.params.id);
-  console.log(requiredProject);
-  res.status(StatusCodes.OK).json(requiredProject);
-}
+const getProjectById = async (req, res) => {
+  console.log("Entered get project by id contract");
+  const project = await Project.findById(req.params.id);
+  return res.status(StatusCodes.OK).json(project);
+};
 
 const retrieveAllProjects = async (req, res) => {
   console.log("entered get all projects controller");
@@ -39,15 +36,18 @@ const deleteProject = async (req, res) => {
   await Project.findByIdAndDelete(req.params.id);
   res.status(StatusCodes.NO_CONTENT);
 };
-//const Project = require('./project-model'); // assuming this file contains the mongoose model definition for "project"
 
-async function getContractAddressByTitle(title) {
-  const project = await Project.findOne({ title }); // find the project with the specified title
+const getContractAddressByTitle = async (req, res) => {
+  const title = req.params.id;
+  const project = await Project.findOne({ title: title });
   if (!project) {
-    throw new Error(`Project with title "${title}" not found`);
+    res.status(StatusCodes.NOT_FOUND).json({ message: "project not found" });
+  } else {
+    res
+      .status(StatusCodes.OK)
+      .json({ contractAddress: project.contractAddress });
   }
-  return project.contractAddress; // return the contract address of the project
-}
+};
 module.exports = {
   createProject,
   retrieveAllProjects,
