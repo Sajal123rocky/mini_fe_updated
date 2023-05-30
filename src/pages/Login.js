@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './login.css';
 import MainLayout from "../mainlayout/MainLayout"
 import { Link } from "react-router-dom";

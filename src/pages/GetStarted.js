@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import MainLayout from '../mainlayout/MainLayout';
 import contacts from '../ContactUs';

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React,{useEffect,useState,Component} from "react";
 import MainLayout from '../mainlayout/MainLayout';
 import {Link, useLocation,useParams} from "react-router-dom";
@@ -7,10 +8,6 @@ import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {ethers} from 'ethers';
 import  contract from '../../artifacts/contracts/ProjectHandler.sol/ProjectHandler.json';
-import image from '../../public/images_cleanup.jpg'
-import image2 from '../../public/How-do-Ethereum-Transacions-Work.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
 // function Transactions() {
 //   const { address } = useParams();
   

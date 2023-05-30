@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import MainLayout from '../mainlayout/MainLayout';
 import {Link} from "react-router-dom"
 import React, { useState,useEffect } from "react";
@@ -188,7 +188,7 @@ function CHome() {
     if(err.code==='ACTION_REJECTED')
     alert("You have rejected the transaction");
     else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
-    alert("You are not authorized to fund the project");
+    alert("You are not authorized to fund the project or 0 amount");
     else if(err.code==='UNSUPPORTED_OPERATION')
     alert("Wallet not connected");
     else

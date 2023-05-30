@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import MainLayout from '../mainlayout/MainLayout';
 import {Link, useLocation} from "react-router-dom";
 import React ,{useEffect,useState} from 'react'

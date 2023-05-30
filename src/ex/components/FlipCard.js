@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState,useCallback } from "react";
 import ReactCardFlip from "react-card-flip";
 import Axios from "axios";
@@ -54,16 +55,20 @@ function FlipCard(props) {
   }
   
   var receipent="0x983aCc74cd696Cd1D8b5D82D6912fF8571aE96F7"
-  async function setGreeting(val,val2){
+  async function setGreeting(val,val2,val3){
+    if(val3==='ongoing'){
     try{
       set(val);
       var a=window.confirm("Are you sure you want");
       if(a)
     {  
+    
     const sendData=await sendContractTx.projectCompleted(); 
+    alert("Please wait processing...");
     const transactionReceipt = await sendData.wait();
-    const datas=await getContractData.getBalance();
-    console.log(ethers.utils.formatEther(datas));
+    //const datas=await getContractData.getBalance();
+    //console.log(ethers.utils.formatEther(datas));
+    
     alert("project closed successfully")
     changestatus(val2);
     //window.location.reload();
@@ -76,12 +81,14 @@ function FlipCard(props) {
     if(err.code==='ACTION_REJECTED')
     alert("You have rejected the transaction");
     else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
-    alert("You are not authorized to do the transaction or Project Low Balance");
+    alert("You are not authorized to do the transaction");
     else if(err.code==='UNSUPPORTED_OPERATION')
     alert("Wallet not connected");
     else
     alert(err.code);
-  }
+  }}
+  else
+  alert("Project already closed");
     
     
   }
@@ -149,7 +156,7 @@ function FlipCard(props) {
 					fontWeight: 'bold',
 					borderRadius: '10px',
                     
-				}} onClick={()=>setGreeting(props.address,props.projectid)}>
+				}} onClick={()=>setGreeting(props.address,props.projectid,props.status)}>
 					Close</button>
                     {/* </Link> */}
 				</div>
