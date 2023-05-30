@@ -64,13 +64,13 @@ function CHome() {
     
     <MainLayout>
       
-      <div className="createProject">
+      <div style={{height:"250px" ,marginTop:"10%",width:"500px"}}className="createProject">
       <form onSubmit={handleSubmit}>
+     
+      <h1 style={{marginTop:"10%"}}>Request status</h1><br></br>
       <div className="insidecreate">
-      <h1>Request status</h1><br></br>
-        <span>Project Title: </span><input   type="text" className='createinp' id="name" onChange={(e)=>handle(e)}></input><br></br><br></br>
-      </div>
-      <br />
+        <input   type="text" className='createinp' id="name" onChange={(e)=>handle(e)} placeholder='Request ID' required></input><br></br>
+      
       {/* <Link to='/Success' > */}
         <button style={{
           width: '85px',
@@ -79,9 +79,9 @@ function CHome() {
           background: '#04AA6D',
           fontWeight: 'bold',
           borderRadius: '10px',
-          marginLeft: '40px',
           }} >
-        Create</button>
+        Check</button>
+        </div>
         {/* </Link> */}
         </form>
       </div>

@@ -33,6 +33,7 @@ function Project() {
     return(
       <FlipCard
       key={entry._id}
+      projectid={entry._id}
       name={entry.title}
       //img={entry.img}
       content={entry.description}

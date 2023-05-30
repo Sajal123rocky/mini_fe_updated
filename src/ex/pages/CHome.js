@@ -16,6 +16,7 @@ function CHome() {
   const contractFactory = new ethers.ContractFactory(MyContract.abi, MyContract.bytecode, wallet);
   const deployContract = async (e) => {
     e.preventDefault();
+    alert("Processing Please Wait...")
     // Deploy the contract to the Ethereum network
     try{
     const contract = await contractFactory.deploy(document.getElementById('addr').value);
@@ -73,13 +74,13 @@ function CHome() {
       
       <div className="createProject">
       <form onSubmit={(e)=>deployContract(e)}>
+      {/* <div className="insidecreate"> */}
+      <h1 style={{marginTop:"10%"}}>Create a Project</h1><br></br>
       <div className="insidecreate">
-      <h1>Create a Project</h1><br></br>
-        <span>Project Title: </span><input onChange={(e)=>handle(e)} value={data.name} type="text" className='createinp' id="name"></input><br></br><br></br>
-        <p>Description:</p>
-        <textarea rows="4" cols="30" maxLength='100' className='createinp' id="des" onChange={(e)=>handle(e)} value={data.des}></textarea><br></br><br></br>
-        <span>Wallet address: </span><input type="text" className='createinp' id="addr" onChange={(e)=>handle(e)} value={data.addr}></input><br></br>
-      </div>
+        <input onChange={(e)=>handle(e)} value={data.name} type="text" className='createinp' id="name" placeholder='Project Title' required></input><br></br>
+        <textarea rows="4" cols="30" maxLength='100' className='createinp' id="des" onChange={(e)=>handle(e)} value={data.des} placeholder='Description'></textarea><br></br>
+        <input type="text" className='createinp' id="addr" onChange={(e)=>handle(e)} value={data.addr} placeholder='Finance Validator Wallet Address' required></input><br></br>
+     
       <br />
       {/* <Link to='/Success' > */}
         <button style={{
@@ -89,9 +90,10 @@ function CHome() {
           background: '#04AA6D',
           fontWeight: 'bold',
           borderRadius: '10px',
-          marginLeft: '40px',
+          
           }} >
         Create</button>
+        </div>
         {/* </Link> */}
         </form>
       </div>

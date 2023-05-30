@@ -168,7 +168,12 @@ class Transactions extends Component{
       return conv;
     }
     function trims(funcSignature){
-    const funcName = funcSignature.split('(')[0];
+      console.log(funcSignature);
+      var funcName;
+      if(funcSignature==='withdraw(address token, uint256 amount)'||funcSignature==='projectCompleted()')
+      funcName=funcSignature.split('(')[0]+"(signer)";
+      else
+     funcName = funcSignature.split('(')[0];
     return funcName;
     }
     function handleCopy(){}//hello
@@ -176,20 +181,22 @@ class Transactions extends Component{
       <MainLayout>
       <h1 style={{color:"white"}}>All Transactions</h1>
       <br></br>
-       <Link style={{color:"white"}}to={`/Transactions/${addr}`} >
-					<button>All Transactions</button></Link>
-          <br></br>
-      <Link style={{color:"white"}}to={`/InternalTransactions/${addr}`} >
-					<button>Contract Transactions</button></Link>
-      <div style={{color:"white"}}>
-      <span style={{fontSize:"30px"}}>Balance: {balance}</span>
-       <select value={this.state.selectedFilter} onChange={this.handleFilterChange}>
+      <select className="allbuts" value={this.state.selectedFilter} onChange={this.handleFilterChange}>
             <option value="All">All</option>
             <option value="Deposit()">Deposit</option>
             <option value="projectCompleted()">Project Completed</option>
             <option value="withdraw(address token, uint256 amount)">Withdraw</option>
-            {/* Add other options based on available function names */}
-          </select>
+           
+      </select>
+      <br></br>
+      <br></br>
+      <div style={{color:"white"}}>
+      <span style={{fontSize:"25px"}}>Balance: {balance}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Link style={{color:"white"}}to={`/Transactions/${addr}`} >
+				  <button className="allbut">All Contract Transactions</button></Link> &nbsp;&nbsp;&nbsp;&nbsp;
+      <Link style={{color:"white"}}to={`/InternalTransactions/${addr}`} >
+					<button className="allbut">Contract Transactions</button></Link>
+       
       {
         filteredTransactions.map(res =>
         <div style={{margin:"10px",width:"680px",height:"210px",margin:"auto",marginTop:"10px",paddingLeft:"10px",paddingTop:"10px",borderRadius:"10px",backgroundSize: 'cover',backgroundPosition: 'center', backgroundColor:'rgba(29,28,35,255)'}}>

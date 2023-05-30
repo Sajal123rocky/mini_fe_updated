@@ -29,6 +29,7 @@ function Transactions(props) {
     return (
       <Table
         key={entry._id}
+        requestid={entry._id}
         transid={entry.recipientWalletAddress}
         name={entry.projectTitle}
         // to={entry.to}

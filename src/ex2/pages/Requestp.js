@@ -1,11 +1,25 @@
 
 import MainLayout from '../mainlayout/MainLayout';
 import {Link} from "react-router-dom"
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Axios from 'axios';
 function Home() {
+  var status="";
+  const [projectList,setProjectList]=useState([]);
+  useEffect(() =>{
+    async function fetchProjectList() {
+      try{
+        const requestUrl='http://127.0.0.1:8000/project';
+        const response = await fetch(requestUrl);
+        const responseJSON=await response.json();
+        console.log(responseJSON);
+        setProjectList(responseJSON);
+      }
+      catch{}
+    }
+    fetchProjectList();
+  },[]);
   const [selectedImage, setSelectedImage] = useState(null);
-  //const navigate = useNavigate();
   const [file, setFile] = useState(null);
     const url="http://127.0.0.1:8000/request";
     const [data,setData]=useState({
@@ -24,8 +38,14 @@ function Home() {
     
     async function submit(e){
       e.preventDefault();
-    const apiurl="http://127.0.0.1:8000/project/contract/"+data.name;
-    const response = await Axios.get(apiurl);
+      var response;
+    const apiurl="http://127.0.0.1:8000/project/"+data.name;
+     try{response = await Axios.get(apiurl);}
+     catch(err){alert("project does not exist");}
+    for(let i=0;i<projectList.length;i++){
+     if(projectList[i].title === data.name)
+     status=projectList[i].status;
+    }
     const Address=await response.data.contractAddress;  
     const formData = new FormData();
     formData.append("projectTitle",data.name);
@@ -35,6 +55,7 @@ function Home() {
     formData.append("photo", file);
     formData.append("contractAddress",Address);
     alert("please wait processing...")
+    if(status==="ongoing"){
     const resp = Axios.post(url, formData, {
       headers: {
         "content-type": "multipart/form-data",
@@ -42,33 +63,22 @@ function Home() {
       },
     }).then(res=>{alert("success");window.location.reload();})
     .catch(err=>alert("error"));
-    
-    //alert(resp.status === 200 ? "Thank you!" : "Error.");
-    //   Axios.post(url,{
-    //     projectTitle:data.name,
-    //     amount:data.amount,
-    //     recipientWalletAddress:data.addr,
-    //     supervisorMailId:data.email,
-    //     photo:file
-    //   })
-    //   .then(res=>{
-    //     //navigate(".././pages/Success");
-        
-    //     alert("Success");
-    //   })
-    //   .catch(err => alert("project not created")); 
+    }
+    else
+    alert("project closed cannot create a request");
      }
   return (
     
     <MainLayout>
-      <div className="createProject">
+      <div className="requestProject">
       <form onSubmit={(e)=>submit(e)}>
-      <div className="insidecreate">
-      <h1>Request Fund</h1><br></br>
-        <span>Project Title: </span><input id="name" type="text" onChange={(e)=>handle(e)} className='createinp'></input><br></br><br></br>
-        <span>Amount:</span><input id="amount" type="text" onChange={(e)=>handle(e)} className='createinp'></input><br></br><br></br>
-        <span>Wallet Address:</span><input id="addr" type="text" onChange={(e)=>handle(e)} className='createinp'></input><br></br><br></br>
-        <span>Email Id:</span><input id="email" type="text" onChange={(e)=>handle(e)} className='createinp'></input><br></br><br></br>
+     
+      <h1 style={{marginTop:"10%"}}>Request Fund</h1><br></br>
+      <div className="insiderequest">
+        <input id="name" type="text" onChange={(e)=>handle(e)} className='createinp' placeholder='Project Title' required></input><br></br>
+        <input id="amount" type="text" onChange={(e)=>handle(e)} className='createinp' placeholder='Amount' required></input><br></br>
+       <input id="addr" type="text" onChange={(e)=>handle(e)} className='createinp' placeholder='Receipient Wallet Address' required></input><br></br>
+        <input id="email" type="email" onChange={(e)=>handle(e)} className='createinp' placeholder='Email ID' required></input><br></br>
         {selectedImage && (
         <div>
           <img
@@ -107,7 +117,6 @@ function Home() {
           background: '#04AA6D',
           fontWeight: 'bold',
           borderRadius: '10px',
-          marginLeft: '40px',
           }} >
         Create</button>
       

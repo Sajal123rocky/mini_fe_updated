@@ -19,38 +19,44 @@ function Table(props) {
    getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
    sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
   }
-  async function getTransactionHistory(val,val1) {
-    set(val);
-    try{
-    const eventName = 'FundWithdrawal'; // name of the event you want to filter by
-    const filter = getContractData.filters[eventName](); // create the filter object
-    const txList = await getContractData.queryFilter(filter); // get the list of events
-
-    const txDetails = await Promise.all(
-      txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
-    );
-    const int=await infuraProvider.getTransaction(txDetails[txDetails.length-1].hash);
-    //console.log(int);
-    const newArr = txDetails.map(obj => ({ ...obj, eventName }));
-    const newArr2 = newArr.map(obj => ({ ...obj, val1 }));
-    console.log(txDetails);
-    console.log("After image link");
-    console.log(newArr2)
-    // console.log(txDetails[txDetails.length-1].hash);
-    // console.log(txDetails[txDetails.length - 1].from);
-    // console.log(txDetails[txDetails.length - 1].to);
-    return txDetails;
-    }
-    catch (error) {
-      console.error(error);
-    }
+  async function changestatus(val2,updatedStatus){
+    const url="http://127.0.0.1:8000/request/"+val2;
+    Axios.post(url,{status:updatedStatus});
+    alert("request"+updatedStatus);
+    window.location.reload();
   }
+  // async function getTransactionHistory(val,val1) {
+  //   set(val);
+  //   try{
+  //   const eventName = 'FundWithdrawal'; // name of the event you want to filter by
+  //   const filter = getContractData.filters[eventName](); // create the filter object
+  //   const txList = await getContractData.queryFilter(filter); // get the list of events
+
+  //   const txDetails = await Promise.all(
+  //     txList.map((tx) => infuraProvider.getTransaction(tx.transactionHash))
+  //   );
+  //   const int=await infuraProvider.getTransaction(txDetails[txDetails.length-1].hash);
+  //   //console.log(int);
+  //   const newArr = txDetails.map(obj => ({ ...obj, eventName }));
+  //   const newArr2 = newArr.map(obj => ({ ...obj, val1 }));
+  //   console.log(txDetails);
+  //   console.log("After image link");
+  //   console.log(newArr2)
+  //   // console.log(txDetails[txDetails.length-1].hash);
+  //   // console.log(txDetails[txDetails.length - 1].from);
+  //   // console.log(txDetails[txDetails.length - 1].to);
+  //   return txDetails;
+  //   }
+  //   catch (error) {
+  //     console.error(error);
+  //   }
+  // }
   // const getGreeting=async()=>{
   //   const data=await getContractData.getBalance();
   //   console.log(data);
   // }//use to get contract data 
-  var receipent="0x983aCc74cd696Cd1D8b5D82D6912fF8571aE96F7"
-  const setGreeting=async(val,val1)=>{
+  //var receipent=props.transid;
+  const setGreeting=async(val,val1,val2,receipent)=>{
     //console.log(val);
     var a=ethers.utils.parseEther(val);
     set(val1);
@@ -61,9 +67,17 @@ function Table(props) {
     // const data=await getContractData.getBalance();
     // console.log(data);
   alert("success")
+  changestatus(val2,"accepted");
   }
   catch(err){
-    alert(err.message);
+    if(err.code==='ACTION_REJECTED')
+    alert("You have rejected the transaction");
+    else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
+    alert("You are not authorized to do the transaction or Project Low Balance");
+    else if(err.code==='UNSUPPORTED_OPERATION')
+    alert("Wallet not connected");
+    else
+    alert(err.code);
   }
     
     
@@ -74,10 +88,11 @@ function Table(props) {
     <div className="t1" >{props.name}</div> 
     <div className="t2">{props.amount} ETH</div>
     <div className="t33"><a href={props.url}>link</a></div> 
-    <div className="t4">Address:{props.address}</div>
-    <div className="t5"> <Link to='/Success' >
+    <div className="t4">Receiver:{props.transid}</div>
+    <div className="t44">Address:{props.address}</div>
+    <div className="t5">
 				
-        <button className="flipbuttonjhj" onclick="confirm('hello')" style={{
+        <button className="flipbuttonjhj" onClick={()=>changestatus(props.requestid,"rejected")} style={{
         
 width: '85px',
 padding: '10px',
@@ -85,10 +100,10 @@ fontSize: '10px',
 background: 'red',
 fontWeight: 'bold',
 borderRadius: '10px',
+marginLeft: '50px',
         
 }} >
-Reject</button>
-        </Link></div>
+Reject</button></div>
     <div className="t6">
     {/* <Link to='/Success' > */}
 				
@@ -102,13 +117,10 @@ fontWeight: 'bold',
 borderRadius: '10px',
 marginLeft:'200px',
         
-}} onClick={()=>setGreeting(props.amount,props.address)}>
+}} onClick={()=>setGreeting(props.amount,props.address,props.requestid,props.transid)}>
 Accept</button>
-        {/* </Link> */}
+        
         </div>  
-    {/* <div className="t7" >{props.url}</div> */}
-    
-    <button onClick={()=>getTransactionHistory(props.address,props.url)}></button>
     </div>
     </div>
   );

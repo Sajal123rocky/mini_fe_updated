@@ -47,9 +47,14 @@ function FlipCard(props) {
    getContractData=new ethers.Contract(contractAddress,contract.abi,infuraProvider);
    sendContractTx=new ethers.Contract(contractAddress,contract.abi,walletProvider.getSigner());
   }
+  async function changestatus(val2){
+    const url="http://127.0.0.1:8000/project/stat/"+val2;
+    Axios.post(url,{});
+    window.location.reload();
+  }
   
   var receipent="0x983aCc74cd696Cd1D8b5D82D6912fF8571aE96F7"
-  async function setGreeting(val){
+  async function setGreeting(val,val2){
     try{
       set(val);
       var a=window.confirm("Are you sure you want");
@@ -60,14 +65,22 @@ function FlipCard(props) {
     const datas=await getContractData.getBalance();
     console.log(ethers.utils.formatEther(datas));
     alert("project closed successfully")
-    window.location.reload();
+    changestatus(val2);
+    //window.location.reload();
     }
     else{
       alert("project not closed");
     }
   }
   catch(err){
-    alert(err.message);
+    if(err.code==='ACTION_REJECTED')
+    alert("You have rejected the transaction");
+    else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
+    alert("You are not authorized to do the transaction or Project Low Balance");
+    else if(err.code==='UNSUPPORTED_OPERATION')
+    alert("Wallet not connected");
+    else
+    alert(err.code);
   }
     
     
@@ -136,7 +149,7 @@ function FlipCard(props) {
 					fontWeight: 'bold',
 					borderRadius: '10px',
                     
-				}} onClick={()=>setGreeting(props.address)}>
+				}} onClick={()=>setGreeting(props.address,props.projectid)}>
 					Close</button>
                     {/* </Link> */}
 				</div>

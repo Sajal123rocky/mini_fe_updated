@@ -8,9 +8,8 @@ import { TfiUser } from "react-icons/tfi";
 function Navbar() {
     const history = useNavigate();
     function handleClick() {
-        // history.push('/Login');
-        // history.go(0); // clears the browser stack
         history('/Login', { replace: true })
+       
       }
     const {ethereum}=window;
     const [address,setAddress]=useState('Connect Wallet')
@@ -33,7 +32,7 @@ function Navbar() {
   return (
     <div >
     <div className='Navbar'>
-        <Link to="/Home"><h1 className='logo'>TrustMyFund</h1></Link>
+        <Link to="/Home" target="_blank" rel="noopener noreferrer"><h1 className='logo'>TrustMyFund</h1></Link>
         
         <ul className="navbar-menu">
             {/* <li ><NavLink to="/Home" style={({ isActive }) => ({ 
@@ -45,7 +44,7 @@ function Navbar() {
                             <li><NavLink to='/Requestv' style={({ isActive }) => ({ 
                             color: isActive ? 'greenyellow' : 'white' ,textDecoration: isActive? "underline":"none"})}>Requests</NavLink></li>
                             <li><NavLink to='/Funds' style={({ isActive }) => ({ 
-                            color: isActive ? 'greenyellow' : 'white' ,textDecoration: isActive? "underline":"none"})}>Funds</NavLink></li> 
+                            color: isActive ? 'greenyellow' : 'white' ,textDecoration: isActive? "underline":"none"})}>Fund</NavLink></li> 
              <li><button style={{
         
         width: '85px',

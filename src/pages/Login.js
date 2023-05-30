@@ -6,13 +6,13 @@ import React, { useState } from "react";
 function Login(){
   const [name, setName] = useState("");
   const [headingText, setHeading] = useState("");
-  function handleChange(event) {
-    console.log(event.target.value);
-    if(event.target.value==="admin")
+  function handleChange(e) {
+    console.log(e.target.value)
+    if(e.target.value==="admin")
     setName('/CHome');
-    else if(event.target.value==="admin1")
+    else if(e.target.value==="admin1")
     setName('/Requestp');
-    else if(event.target.value==="admin2")
+    else if(e.target.value==="admin2")
     setName('/Requestv');
     else
     setName('/Success');
@@ -30,9 +30,9 @@ function Login(){
   </div>
 
   <div class="container">  
-    <input onChange={handleChange} className="inp" type="text" placeholder="Enter Username" required/>
+    <input  id="user" onChange={handleChange} className="inp" type="text" placeholder="Enter Username" required/>
     <br></br>
-    <input className="inp" type="password" placeholder="Enter Password" name="psw" required/>
+    <input className="inp" onChange={handleChange} id="pass" type="password" placeholder="Enter Password" name="psw" required/>
     <br></br>
     <a href={headingText} target="_blank" rel="noopener noreferrer">
     <button className="but" onClick={handleClick}>Login</button>

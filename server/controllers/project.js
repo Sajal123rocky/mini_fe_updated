@@ -48,6 +48,7 @@ const getContractAddressByTitle = async (req, res) => {
       .json({ contractAddress: project.contractAddress });
   }
 };
+
 module.exports = {
   createProject,
   retrieveAllProjects,

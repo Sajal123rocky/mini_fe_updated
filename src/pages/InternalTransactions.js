@@ -154,7 +154,14 @@ class InternalTransactions extends Component{
     // const { address } = this.props.match.params;
     const {result,result2,addr}=this.state;
     const obj=Array.from(result);
+    obj.reverse();
     const obj2=Array.from(result2);
+    obj2.reverse();
+    function convert(timestamp) {
+      const date = new Date(timestamp * 1000); 
+      const conv = date.toLocaleString();
+      return conv;
+    }
     if(obj.length===0)
     {
       return (
@@ -168,18 +175,20 @@ class InternalTransactions extends Component{
       <div style={{color:"white"}}>
       <h1>Contract Transactions</h1>
       <Link style={{color:"white"}}to={`/Transactions/${addr}`} >
-					All Transactions</Link>
-          <br></br>
+				  <button className="allbut">All Contract Transactions</button></Link> &nbsp;&nbsp;&nbsp;&nbsp;
       <Link style={{color:"white"}}to={`/InternalTransactions/${addr}`} >
-					Contract Transactions</Link>
+					<button className="allbut">Contract Transactions</button></Link>
       {
         obj.map(res =>
+          <div style={{margin:"10px",width:"700px",height:"220px",margin:"auto",marginTop:"10px",paddingLeft:"10px",paddingTop:"10px",borderRadius:"10px",backgroundSize: 'cover',backgroundPosition: 'center', backgroundColor:'rgba(29,28,35,255)'}}>
         <div style={{margin:"10px"}}>
-        <div>TXN HASH:{res.hash}</div>
-        <div>From:{res.from}</div>
-        <div>To:{res.to}</div>
-        <div>Amount:{ethers.utils.formatEther(res.value)}</div>
+        <div>TXN HASH:{res.hash}</div><br></br>
+        <div>From:{res.from}</div><br></br>
+        <div>To:{res.to}</div><br></br>
+        <div style={{}}>Date and Time:{convert(res.timeStamp)}</div><br></br>
+        <div>Amount:{ethers.utils.formatEther(res.value)}</div><br></br>
         <div>Type:{obj2.map(res2=><span >{res2.hash===res.hash?res2.functionName:""}</span>)}</div>
+        </div>
         </div>
         )
       }

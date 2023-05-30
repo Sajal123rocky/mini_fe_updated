@@ -33,7 +33,7 @@ function Navbar() {
   return (
     <div >
     <div className='Navbar'>
-        <Link to="/Home"><h1 className='logo'>TrustMyFund</h1></Link>
+        <Link to="/Home" target="_blank" rel="noopener noreferrer"><h1 className='logo'>TrustMyFund</h1></Link>
         
         <ul className="navbar-menu">
             <li ><NavLink to="/CHome" style={({ isActive }) => ({ 
