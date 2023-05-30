@@ -10,7 +10,7 @@ const identity=[
         id:2,
         name:"Admin",
         img:"admin.png",
-        content:"You can login using login button in nav bar and can create project and fund them",
+        content:"You can login and create projects and fund them",
         type:"Admin"
     }
 ]

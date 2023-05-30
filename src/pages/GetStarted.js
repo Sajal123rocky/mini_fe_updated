@@ -21,7 +21,7 @@ function GetStarted() {
   return (
     <MainLayout>
       <div className="getstartedcards">
-      <p className='getstartedcontent'>Who you are?</p><br />
+      <p className='getstartedcontent'>Who are you?</p><br />
       {identity.map(createCard)}
       </div>
     
