@@ -57,7 +57,7 @@ function Table(props) {
   //   console.log(data);
   // }//use to get contract data 
   //var receipent=props.transid;
-  const setGreeting=async(val,val1,val2,receipent)=>{
+  const sendFund=async(val,val1,val2,receipent)=>{
     //console.log(val);
     var a=ethers.utils.parseEther(val);
     set(val1);
@@ -118,7 +118,7 @@ fontWeight: 'bold',
 borderRadius: '10px',
 marginLeft:'200px',
         
-}} onClick={()=>setGreeting(props.amount,props.address,props.requestid,props.transid)}>
+}} onClick={()=>sendFund(props.amount,props.address,props.requestid,props.transid)}>
 Accept</button>
         
         </div>  

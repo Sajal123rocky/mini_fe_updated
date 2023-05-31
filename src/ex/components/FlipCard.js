@@ -17,7 +17,7 @@ function FlipCard(props) {
    let getContractData;
    let sendContractTx;
    let bal="";
-  const getGreeting=async(val,val1)=>{
+  const showBalance=async(val,val1)=>{
     set(val);
     const data=await getContractData.getBalance();
     bal=ethers.utils.formatEther(data);
@@ -35,7 +35,7 @@ function FlipCard(props) {
   //   set();
   //   var a=window.confirm("Are you sure you want");
   //   if(a)
-  //   setGreeting();
+  //   closeProject();
 
   //   }
   //   catch(e){
@@ -55,11 +55,11 @@ function FlipCard(props) {
   }
   
   var receipent="0x983aCc74cd696Cd1D8b5D82D6912fF8571aE96F7"
-  async function setGreeting(val,val2,val3){
+  async function closeProject(val,val2,val3){
     if(val3==='ongoing'){
     try{
       set(val);
-      var a=window.confirm("Are you sure you want");
+      var a=window.confirm("Are you sure you want to close this project");
       if(a)
     {  
     
@@ -81,7 +81,7 @@ function FlipCard(props) {
     if(err.code==='ACTION_REJECTED')
     alert("You have rejected the transaction");
     else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
-    alert("You are not authorized to do the transaction");
+    alert("You are not authorized to do the transaction or 0 balance");
     else if(err.code==='UNSUPPORTED_OPERATION')
     alert("Wallet not connected");
     else
@@ -120,7 +120,7 @@ function FlipCard(props) {
                     fontWeight: 'bold',
                     borderRadius: '20px',
                               
-                  }}onClick={(e)=>{e.stopPropagation();getGreeting(props.address,props.name)}}>show balance</button></div>
+                  }}onClick={(e)=>{e.stopPropagation();showBalance(props.address,props.name)}}>show balance</button></div>
                 <div className="item3">{props.status}</div>
 
                 <div className="item4">{props.address}<div className="Balance">Contract Address</div></div>
@@ -156,7 +156,7 @@ function FlipCard(props) {
 					fontWeight: 'bold',
 					borderRadius: '10px',
                     
-				}} onClick={()=>setGreeting(props.address,props.projectid,props.status)}>
+				}} onClick={()=>closeProject(props.address,props.projectid,props.status)}>
 					Close</button>
                     {/* </Link> */}
 				</div>

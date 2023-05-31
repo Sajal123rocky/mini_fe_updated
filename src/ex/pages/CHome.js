@@ -17,11 +17,10 @@ function CHome() {
   const deployContract = async (e) => {
     e.preventDefault();
     alert("Processing Please Wait...")
-    // Deploy the contract to the Ethereum network
+   
     try{
     const contract = await contractFactory.deploy(document.getElementById('addr').value);
   
-    // Wait for the contract to be mined
     await contract.deployed();
     Axios.post(url,{
       title:data.name,
@@ -35,7 +34,7 @@ function CHome() {
    
     catch(err){
       alert(err.message);
-    }// Log the contract address to the console
+    }
     
   }
   const navigate = useNavigate();
