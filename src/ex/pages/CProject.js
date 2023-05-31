@@ -22,6 +22,7 @@ function Project() {
         const requestUrl='http://127.0.0.1:8000/project';
         const response = await fetch(requestUrl);
         const responseJSON=await response.json();
+        responseJSON.reverse();
         console.log(responseJSON);
         setProjectList(responseJSON);
       }

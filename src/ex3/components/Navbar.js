@@ -57,7 +57,7 @@ function Navbar() {
         
                 
         }}onClick={requestAccount}>Connect</button></li>
-            <li><a href='/Login' className="login" onClick={()=>handleClick()}>< TfiUser /> Logout</a></li>
+            <li><a href='/Login' className="login" onClick={()=>handleClick()} target="_blank" rel="noopener noreferrer">< TfiUser /> Logout</a></li>
            
         {/* <ul className="navbar-login">
             <li className='login'><a href='/Login'><BsPersonCircle/>Login</a></li>

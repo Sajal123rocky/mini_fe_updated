@@ -81,7 +81,7 @@ function FlipCard(props) {
     if(err.code==='ACTION_REJECTED')
     alert("You have rejected the transaction");
     else if(err.code==='UNPREDICTABLE_GAS_LIMIT')
-    alert("You are not authorized to do the transaction or 0 balance");
+    alert("You are not authorized to do the transaction");
     else if(err.code==='UNSUPPORTED_OPERATION')
     alert("Wallet not connected");
     else

@@ -23,7 +23,7 @@ function Table(props) {
   async function changestatus(val2,updatedStatus){
     const url="http://127.0.0.1:8000/request/"+val2;
     Axios.post(url,{status:updatedStatus});
-    alert("request"+updatedStatus);
+    alert("request "+updatedStatus);
     window.location.reload();
   }
   // async function getTransactionHistory(val,val1) {
